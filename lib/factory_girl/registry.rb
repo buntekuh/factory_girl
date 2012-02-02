@@ -35,11 +35,7 @@ module FactoryGirl
     private
 
     def add_as(name, item)
-      if registered?(name)
-        raise DuplicateDefinitionError, "#{@name} already registered: #{name}"
-      else
-        @items[name.to_sym] = item
-      end
+      @items[name.to_sym] = item unless (registered?(name) && !@override)
     end
   end
 end

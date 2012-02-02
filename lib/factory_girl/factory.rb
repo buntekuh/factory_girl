@@ -11,6 +11,7 @@ module FactoryGirl
       @parent           = options[:parent]
       @aliases          = options[:aliases] || []
       @class_name       = options[:class]
+      @override         = options[:override]
       @default_strategy = options[:default_strategy]
       @definition       = Definition.new(@name, options[:traits] || [])
       @compiled         = false
@@ -130,7 +131,7 @@ module FactoryGirl
     private
 
     def assert_valid_options(options)
-      options.assert_valid_keys(:class, :parent, :default_strategy, :aliases, :traits)
+      options.assert_valid_keys(:class, :parent, :default_strategy, :aliases, :traits, :override)
 
       if options[:default_strategy]
         Proxy.ensure_strategy_exists!(options[:default_strategy])
