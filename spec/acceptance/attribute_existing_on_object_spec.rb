@@ -47,3 +47,22 @@ describe "assigning overrides that are also private methods on object" do
   its(:more_format)       { should == "format: Great" }
   its(:some_funky_method) { should == "foobar!" }
 end
+
+describe "accessing methods from the instance within a dynamic attribute that is also a private method on object" do
+  before do
+    define_model("Website", :more_format => :string) do
+      def format
+        "This is an awesome format"
+      end
+    end
+
+    FactoryGirl.define do
+      factory :website do
+        more_format { "format: #{format}" }
+      end
+    end
+  end
+
+  subject           { FactoryGirl.build(:website) }
+  its(:more_format) { should == "format: This is an awesome format" }
+end

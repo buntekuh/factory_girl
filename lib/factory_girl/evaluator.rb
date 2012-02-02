@@ -12,6 +12,10 @@ module FactoryGirl
       end
     end
 
+    private_instance_methods.each do |method|
+      undef_method(method) unless method =~ /^__|initialize/
+    end
+
     def initialize(build_strategy, overrides = {})
       @build_strategy    = build_strategy
       @overrides         = overrides
